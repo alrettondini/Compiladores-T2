@@ -20,34 +20,26 @@ public class Main {
         while((t = lex.nextToken()).getType() != Token.EOF) {
             String nomeToken = JanderLexico.VOCABULARY.getDisplayName(t.getType());
 
-            // Caso seja um erro
             if(nomeToken.equals("ERRO")) {
                     //System.out.println("Erro na linha "+t.getLine()+": "+t.getText());
-                    pw.println("Erro na linha "+t.getLine()+": "+t.getText());
+                    pw.println("Linha "+t.getLine()+": "+t.getText()+ " - simbolo nao identificado");
                     break;
-            } 
-            // Caso seja uma cadeia não fechada
-            else if(nomeToken.equals("CADEIA_NAO_FECHADA")) {
+                } else if(nomeToken.equals("CADEIA_NAO_FECHADA")) {
                     //System.out.println("Cadeia não fechada na linha "+t.getLine());
-                    pw.println("Cadeia não fechada na linha "+t.getLine());
+                    pw.println("Linha "+t.getLine()+": cadeia literal nao fechada");
                     break;
-            } 
-            // Caso seja um comentário não fechado
-            else if(nomeToken.equals("COMENTARIO_NAO_FECHADO")) {
+                } else if(nomeToken.equals("COMENTARIO_NAO_FECHADO")) {
                     //System.out.println("Cadeia não fechada na linha "+t.getLine());
-                    pw.println("Comentário não fechado na linha "+t.getLine());
+                    pw.println("Linha "+t.getLine()+": comentario nao fechado");
                     break;
-            }
-            // Caso seja algum operador (Aritmético, Relacional ou Lógico)
-            else if(nomeToken.equals("OP_REL" ) || nomeToken.equals("OP_ARIT" ) || nomeToken.equals("OP_LOGICO")){
+                } else if(nomeToken.equals("PONTUACAO") || nomeToken.equals("OP_REL" ) || nomeToken.equals("OP_ARIT" ) || nomeToken.equals("OP_LOGICO")){
                 // System.out.println("<" + '\'' + t.getText() + '\'' + ',' + '\'' + t.getText() + '\'' + ">");
                 pw.println("<" + '\'' + t.getText() + '\'' + ',' + '\'' + t.getText() + '\'' + ">");
+            } else{
+                // System.out.println("<" + '\'' + t.getText() + '\'' + ',' + tempName + ">");
+                pw.println("<" + '\'' + t.getText() + '\'' + ',' + nomeToken + ">");
+
             }
-            // Mensagem sem erro
-            else {
-                    //System.out.println("<" + nomeToken + "," + t.getText() + ">");
-                    pw.println("<" + nomeToken + "," + t.getText() + ">");
-                }
         }
 
         pw.close();
